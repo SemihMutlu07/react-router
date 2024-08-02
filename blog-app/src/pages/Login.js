@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import { login } from 'blog-app\src\utils\api.js';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError]= useState("");
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Login:', email, password); //???
+        try {
+            const user = await login(email, password);
+            console.log('Logged in user:', user);
+        } catch (err) {
+            setError("Failed to log in. Please check your credentials.")
+        }
     };
 
     return (
