@@ -1,27 +1,29 @@
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from '/.pages/Home';
-import Login from '/.pages/Login';
-import Register from '/.pages/Register';
-import CreatePost from '/.pages/CreatePoste';
-import EditPost from '/.pages/EditPost';
-import PostList from '/.pages/PostList';
-import PostDetail from '/.pages/PostDetail';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import CreatePost from './pages/CreatePost';
+import EditPost from './pages/EditPost';
+import PostList from './pages/PostList';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 
-
-function App() {
+const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path='/login' component={Login}/>
-        <Route path='/register' component={Register}/>
-        <Route path='/create' component={CreatePost}/>
-        <Route path='/edit/:id' component={EditPost}/>
-        <Route path='/posts' component={PostList}/>
-        <Route path='/post/:id' component={PostDetail}/>
-      </Switch>
-    </Router>
+    <div>
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/create-post" component={CreatePost} />
+          <Route path="/edit-post/:id" component={EditPost} />
+          <Route path="/post-list" component={PostList} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/" exact component={PostList} />
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

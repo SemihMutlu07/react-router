@@ -1,37 +1,51 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { createPost } from 'D:/coding/react-router/blog-app/src/utils/api';
 
 const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState("");
+    const [error, setError] = useState("");
+    const history = useHistory();
 
-    const handleSubmit =  (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // we will mock the server anyways
-        console.log('Creating Post: ', title, content);
+        try {
+            const post = await createPost({title, content});
+            console.log('Post created:', post);
+            history.push('/post-list');            
+        } catch (error) {
+            setError('failed to create the goddamn post. Please try again.');
+        }
     };
 
     return (
-        <div>
-            <h1>Create Post</h1>
+        <div className="container mx-auto p-4">
+            <h1 className="text-4xl font-bold mb-4">Create Post</h1>
+            {error && <p className="text-red-500">{error}</p>}
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Title: </label>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
                     <input
-                        type='text'
+                        type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
                     />
                 </div>
-                <div>
-                    <label>Content: </label>
-                    <input
-                        type='text'
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Content:</label>
+                    <textarea
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                         required
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
                     />
                 </div>
-                <button type="submit">Create Post</button>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Create Post
+                </button>
             </form>
         </div>
     );

@@ -1,78 +1,66 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import { fetchPostById, updatePost } from '../utils/api'; // Adjust the path as necessary
 
 const EditPost = () => {
-    const { id } = useParams(); //retrieving id from url .D
-    const history = useHistory(); //Use for redirecting after successful edit???????
+    const { id } = useParams();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [loading, setLoading] = useState(true); //handling loading????
+    const [error, setError] = useState('');
+    const history = useHistory();
 
     useEffect(() => {
-        const fetchPost = async () => {
+        const getPost = async () => {
             try {
-                const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-                const data = await response.json();
-                setTitle(data.title);
-                setContent(data.body);
-                setLoading(false); //
-            } catch (error) {
-                console.log('Error fetching post: ', error);
-                setLoading(false); //setLoading false even if there is an error
+                const post = await fetchPostById(id);
+                setTitle(post.title);
+                setContent(post.content);
+            } catch (err) {
+                setError('Failed to fetch post.');
             }
         };
 
-        fetchPost();
+        getPost();
     }, [id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    title,
-                    body: content,
-                }),
-            });
-            
-            if (response.ok) {
-                alert('POst updated successfully!');
-                history.push(`/post/${id}`); //redirecting post detail?
-            } else {
-                alert('Failed to update post..');
-            }
-        } catch (error) {
-            console.error('Error updating post:', error);
+            const updatedPost = await updatePost(id, { title, content });
+            console.log('Post updated:', updatedPost);
+            history.push('/post-list'); // Redirect to post list after successful update
+        } catch (err) {
+            setError('Failed to update post. Please try again.');
         }
     };
 
-    if (loading) return <div>Loading...</div>
-    
     return (
-        <div>
-            <h1>Edit Post</h1>
+        <div className="container mx-auto p-4">
+            <h1 className="text-4xl font-bold mb-4">Edit Post</h1>
+            {error && <p className="text-red-500">{error}</p>}
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Title:</label>
-                    <input
-                        type='text'
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)} required ///???
-                    />
-                </div>
-                <div>
-                    <label>Content:</label>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
                     <input
                         type="text"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)} required
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
                     />
                 </div>
-                <button type='submit'>Update Post</button>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Content:</label>
+                    <textarea
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        required
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                    />
+                </div>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Update Post
+                </button>
             </form>
         </div>
     );
