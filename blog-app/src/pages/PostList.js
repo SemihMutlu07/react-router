@@ -7,7 +7,7 @@ const PostList = () => {
 
     useEffect(() => {
         //fetching
-    const getPost = async () => {
+    const getPosts = async () => {
             try {
                 const data = await fetchPosts();
                 setPosts(data);
