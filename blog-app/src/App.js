@@ -8,23 +8,21 @@ import PostList from './pages/PostList';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
-
 const App = () => {
-  return (
-    <div>
-      <Router>
-        <Header />
-        <Switch>
-          <Route path="/create-post" component={CreatePost} />
-          <Route path="/edit-post/:id" component={EditPost} />
-          <Route path="/post-list" component={PostList} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/" exact component={PostList} />
-        </Switch>
-      </Router>
-    </div>
-  );
-}
+    return (
+        <Router>
+            <Header />
+            <Switch>
+                <Route path="/create-post" component={CreatePost} />
+                <Route path="/edit-post/:id" component={EditPost} />
+                <Route path="/post-list" component={PostList} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
+                <Route path="/" exact component={PostList} />
+            </Switch>
+            <Footer />
+        </Router>
+    );
+};
 
 export default App;
