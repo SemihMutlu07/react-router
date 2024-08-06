@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from 'D:/coding/react-router/blog-app/src/redux/store'
+import store from './redux/store';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import CreatePost from './pages/CreatePost';
@@ -15,14 +15,14 @@ const App = () => {
         <Provider store={store}>
             <Router>
                 <Header />
-                <Switch>
-                    <Route path="/create-post" component={CreatePost} />
-                    <Route path="/edit-post/:id" component={EditPost} />
-                    <Route path="/post-list" component={PostList} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/" exact component={PostList} />
-                </Switch>
+                <Routes>
+                    <Route path="/create-post" element={<CreatePost />} />
+                    <Route path="/edit-post/:id" element={<EditPost />} />
+                    <Route path="/post-list" element={<PostList />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/" element={<PostList />} />
+                </Routes>
                 <Footer />
             </Router>
         </Provider>

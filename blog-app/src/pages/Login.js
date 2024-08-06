@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { login } from 'D:/coding/react-router/blog-app/src/utils/api';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError]= useState("");
-    const history = useHistory(); //??
+    const navigate = useNavigate(); //??
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -14,7 +14,7 @@ const Login = () => {
             const user = await login(email, password);
             console.log('Logged in user:', user);
             localStorage.setItem('user', JSON.stringify(user)) //saving user info in local storage
-            history.push('./Home.js')
+            navigate.push('./Home.js')
         } catch (err) {
             setError("Failed to log in. Please check your credentials.")
         }

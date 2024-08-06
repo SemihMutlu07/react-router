@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { fetchPost, deletePost } from 'D:/coding/react-router/blog-app/src/utils/api';
+import { fetchPosts, deletePost } from 'D:/coding/react-router/blog-app/src/utils/api';
 import PostItem from 'D:/coding/react-router/blog-app/src/components/PostItem';
 
 const PostList = () => {
-    const [posts, setPosts ] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        //fetching
-    const getPosts = async () => {
+        // Fetching posts
+        const getPosts = async () => {
             try {
                 const data = await fetchPosts();
                 setPosts(data);
@@ -26,9 +26,9 @@ const PostList = () => {
         } catch (error) {
             console.error('Failed to delete post:', error);
         }
-    }; 
-        // alttaki örnek çok fazla iyi, direkt içine if statemnet koyup ona göre yazdı yapacağını
-    return ( 
+    };
+
+    return (
         <div className='container mx-auto p-4'>
             <h1 className='text-4xl font-bold mb-4'>Posts</h1>
             {posts.length > 0 ? (
@@ -47,8 +47,7 @@ const PostList = () => {
                 <p>No posts available</p>
             )}
         </div>
-    )
-
+    );
 };
 
 export default PostList;

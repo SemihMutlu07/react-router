@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { createPost } from 'D:/coding/react-router/blog-app/src/utils/api';
+import { useNavigate } from 'react-router-dom';
+import { createPost } from '../utils/api';
 
 const CreatePost = () => {
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState("");
-    const [error, setError] = useState("");
-    const history = useHistory();
+    const [content, setContent] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // we will mock the server anyways
+        e.preventDefault();
         try {
-            const post = await createPost({title, content});
+            const post = await createPost({ title, content });
             console.log('Post created:', post);
-            history.push('/post-list');            
+            navigate('/post-list');
         } catch (error) {
-            setError('failed to create the goddamn post. Please try again.');
+            setError('Failed to create the post. Please try again.');
         }
     };
 

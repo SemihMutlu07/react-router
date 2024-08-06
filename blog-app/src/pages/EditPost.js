@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchPostById, updatePost } from '../utils/api'; // Adjust the path as necessary
 
 const EditPost = () => {
@@ -7,7 +7,7 @@ const EditPost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [error, setError] = useState('');
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getPost = async () => {
@@ -28,7 +28,7 @@ const EditPost = () => {
         try {
             const updatedPost = await updatePost(id, { title, content });
             console.log('Post updated:', updatedPost);
-            history.push('/post-list'); // Redirect to post list after successful update
+            navigate.push('/post-list'); // Redirect to post list after successful update
         } catch (err) {
             setError('Failed to update post. Please try again.');
         }
