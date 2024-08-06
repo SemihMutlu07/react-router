@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { register } from 'D:/coding/react-router/blog-app/src/utils/api';
 
 const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle registration logic here
-        console.log('Register:', name, email, password);
+        try {
+            const user = await register(name, email, password);
+            console.log('User registered:', user);
+            navigate('/login');
+        } catch (error) {
+            setError('Failed to register. Please try again.');
+        }
     };
 
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-4xl font-bold mb-4">Register</h1>
+            {error && <p className="text-red-500">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Name:</label>

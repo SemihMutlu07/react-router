@@ -14,16 +14,20 @@ const App = () => {
     return (
         <Provider store={store}>
             <Router>
-                <Header />
-                <Routes>
-                    <Route path="/create-post" element={<CreatePost />} />
-                    <Route path="/edit-post/:id" element={<EditPost />} />
-                    <Route path="/post-list" element={<PostList />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/" element={<PostList />} />
-                </Routes>
-                <Footer />
+                <div className='flex flex-col min-h-screen'>
+                    <Header />
+                    <div className='flex-grow'>
+                        <Routes>
+                            <Route path="/create-post" element={<CreatePost />} />
+                            <Route path="/edit-post/:id" element={<EditPost />} />
+                            <Route path="/post-list" element={<PostList />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/" element={<PostList />} />
+                        </Routes>
+                    </div>
+                    <Footer />
+                </div>
             </Router>
         </Provider>
     );

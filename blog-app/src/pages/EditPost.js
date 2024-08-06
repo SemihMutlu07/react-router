@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchPostById, updatePost } from '../utils/api'; // Adjust the path as necessary
+import { fetchPostById, updatePost } from 'D:/coding/react-router/blog-app/src/utils/api'; 
 
 const EditPost = () => {
     const { id } = useParams();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [image, setImage] = useState(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -15,6 +16,7 @@ const EditPost = () => {
                 const post = await fetchPostById(id);
                 setTitle(post.title);
                 setContent(post.content);
+                setImage(post.image);
             } catch (err) {
                 setError('Failed to fetch post.');
             }
@@ -23,12 +25,23 @@ const EditPost = () => {
         getPost();
     }, [id]);
 
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const postData = new FormData();
+        postData.append('title', title);
+        postData.append('content', content);
+        if (image) {
+            postData.append('image', image);
+        }
+
         try {
-            const updatedPost = await updatePost(id, { title, content });
+            const updatedPost = await updatePost(id, postData);
             console.log('Post updated:', updatedPost);
-            navigate.push('/post-list'); // Redirect to post list after successful update
+            navigate('/post-list'); // Redirect to post list after successful update
         } catch (err) {
             setError('Failed to update post. Please try again.');
         }

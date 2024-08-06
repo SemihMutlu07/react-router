@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { fetchPosts, deletePost } from 'D:/coding/react-router/blog-app/src/utils/api';
+import { useNavigate } from 'react-router-dom';
 import PostItem from 'D:/coding/react-router/blog-app/src/components/PostItem';
 
 const PostList = () => {
     const [posts, setPosts] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
-        // Fetching posts
         const getPosts = async () => {
             try {
                 const data = await fetchPosts();
@@ -22,29 +22,27 @@ const PostList = () => {
     const handleDelete = async (id) => {
         try {
             await deletePost(id);
-            setPosts(posts.filter(post => post.id !== id)); // Remove deleted post from the state
+            setPosts(posts.filter(post => post.id !== id));
         } catch (error) {
             console.error('Failed to delete post:', error);
         }
     };
 
+    const handleEdit = (id) => {
+        navigate(`/edit-post/${id}`);
+    }
+
     return (
         <div className='container mx-auto p-4'>
-            <h1 className='text-4xl font-bold mb-4'>Posts</h1>
+            <h1 className='text-4xl font-bold mb-4 text-center'>Posts</h1>
             {posts.length > 0 ? (
-                <ul>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
                     {posts.map(post => (
-                        <li key={post.id}>
-                            <h2 className='text-2xl'>{post.title}</h2>
-                            <p>{post.content}</p>
-                            <button onClick={() => handleDelete(post.id)} className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>
-                                Delete
-                            </button>
-                        </li>
+                        <PostItem key={post.id} post={post} onDelete={handleDelete} onEdit={handleEdit} />
                     ))}
-                </ul>
+                </div>
             ) : (
-                <p>No posts available</p>
+                <p className="text-center text-gray-600">No posts available</p>
             )}
         </div>
     );
