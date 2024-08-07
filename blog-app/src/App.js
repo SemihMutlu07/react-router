@@ -9,6 +9,7 @@ import EditPost from './pages/EditPost';
 import PostList from './pages/PostList';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
     return (

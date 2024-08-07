@@ -2,29 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPost } from 'D:/coding/react-router/blog-app/src/utils/api';
 
+
 const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [image, setImage] = useState(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const postData = new FormData();
-        postData.append('title', title);
-        postData.append('content', content);
-        if (image) {
-            postData.append('image', image);
-        }
-
-        for (var pair of postData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
-        }
+        const postData = { title, content };
 
         try {
             console.log('Submitting post data:', postData);
@@ -59,14 +46,6 @@ const CreatePost = () => {
                         onChange={(e) => setContent(e.target.value)}
                         required
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-                    />
-                </div>
-                <div className='mb-4'>
-                    <label className='block text-gray-700 text-sm font-bold mb-2'>Image:</label>
-                    <input
-                        type="file"
-                        onChange={handleImageChange}
-                        className='shadow appearance-none border rounded w-full py-2 px-3'
                     />
                 </div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

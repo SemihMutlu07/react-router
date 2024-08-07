@@ -51,7 +51,10 @@ export const createPost = async (postData) => {
     try {
         const response = await fetch(`${API_URL}/posts`, {
             method: "POST",
-            body: postData, // FormData automatically sets the correct headers
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData), // Sending JSON data
         });
 
         if (!response.ok) {

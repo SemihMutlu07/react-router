@@ -11,28 +11,34 @@ const Header = () => {
     };
 
     return (
-        <header className="bg-gray-800 text-white p-4">
+        <nav className="bg-blue-500 p-4">
             <div className="container mx-auto flex justify-between items-center">
-                <Link to="/" className="text-xl font-bold">My Blog</Link>
-                <nav>
+                <Link to="/" className="text-xl font-bold text-white">My Blog</Link>
+                <div>
                     {user ? (
                         <>
-                            <span className="mr-4">Welcome, {user.name}</span>
-                            <Link to="/create-post" className='mr-4'>Create Post</Link>
-                            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                Logout
-                            </button>
+                            <Link to="/create-post" className='text-white mr-4'>Create Post</Link>
+                            <div className='relative inline-block text-left'>
+                                <button className='text-white mr-4'>{user.name}</button>
+                                <div className='absolute right-0 w-56 mt-2 bg-white rounded-md shadow-lg'>
+                                    <Link to="/profile" className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left'>Profile</Link>
+                                    <button onClick={handleLogout} className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left'>
+                                        Logout
+                                    </button>
+                                </div>
+                            </div>
                         </>
                     ) : (
                         <>
-                            <Link to="/login" className="mr-4">Login</Link>
-                            <Link to="/register" className="mr-4">Register</Link>
+                            <Link to="/login" className="text-white mr-4">Login</Link>
+                            <Link to="/register" className="text-white mr-4">Register</Link>
                         </>
                     )}
-                </nav>
+                </div>
             </div>
-        </header>
+        </nav>
     );
 };
+
 
 export default Header;
