@@ -1,0 +1,60 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "First Post",
+      "content": "This is the first post."
+    },
+    {
+      "id": "2",
+      "title": "Second Post",
+      "content": "This is the second post."
+    },
+    {
+      "id": "7dfc",
+      "title": "ASĞJODNAOJDNSAJODNOAĞdn",
+      "content": "OASNdjoDNoa"
+    },
+    {
+      "title": "şeyma göt yurtdışına çıkamıyor",
+      "content": "şeyma gök yurtdışına çıkıyorşeyma gök yurtdışına çıkıyorşeyma gök yurtdışına çıkıyorşeyma gök yurtdışına çıkıyorşeyma gök yurtdışına çıkıyorşeyma gök yurtdışına çıkıyor",
+      "id": "c573"
+    },
+    {
+      "id": "9d6e",
+      "title": "gagra",
+      "content": "garga"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com"
+    },
+    {
+      "id": "40b5",
+      "name": "asad",
+      "email": "asdsad@gmail.com",
+      "password": "asdad"
+    },
+    {
+      "id": "c23f",
+      "name": "semihmutlu",
+      "email": "semihmutlu220@gmail.com",
+      "password": "Yasemen123"
+    },
+    {
+      "id": "a91e",
+      "name": "aHMET",
+      "email": "ahmet@email.com",
+      "password": "garagara"
+    },
+    {
+      "id": "e4c1",
+      "name": "Şeyma Gök",
+      "email": "seymagok@mail.com",
+      "password": "316293"
+    }
+  ]
+}
